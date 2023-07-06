@@ -13,6 +13,7 @@
     margin-left: 126px;
     margin-right: 126px;
     margin-top: 20px;
+    margin-bottom: 50px;
 }
 
 .campaigns-container-top {
@@ -51,4 +52,83 @@
 .campaigns-container .campaign-list .campaign-splitter {
     width: 20px;
     height: max-content;
+}
+
+.table-container {
+    width: -moz-available;
+    /* Fallback for Mozilla-based browsers */
+    width: -webkit-fill-available;
+    /* Fallback for WebKit-based browsers */
+    width: fill-available;
+    overflow-x: auto;
+    padding-top: 40px;
+    padding-bottom: 40px;
+    margin-bottom: 40px;
+}
+
+.referrers-table {
+    color: rgba(152, 161, 192, 1);
+    font-size: 14px;
+    width: 100%;
+    transition: cubic-bezier(0.075, 0.82, 0.165, 10);
+    text-align: center;
+    border-collapse: collapse;
+}
+
+.referrers-table tbody tr {
+    border-bottom: 2px solid rgba(255, 255, 255, 0.05);
+}
+
+.referrers-table tbody td {
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+.three-dot-text {
+    display: inline-block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100%;
+}
+
+.pagination {
+    text-align: center;
+    margin: auto;
+    margin-top: 30px;
+}
+
+.pagination a {
+    margin: 10px;
+    color: rgba(152, 161, 192, 1);
+    text-decoration: none;
+}
+
+.pagination a:active {
+    margin: 10px;
+    color: rgba(255, 255, 255, 1);
+}
+
+.center-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    margin: auto;
+}
+
+.center-container .connect-button {
+    border-top-right-radius: 9999px;
+    border-bottom-right-radius: 9999px;
+}
+
+.center-container .connect-container {
+    margin: auto;
+}
+
+.connect-title {
+    color: #fff;
+    font-size: 28px;
+    margin-bottom: 20px;
 }
