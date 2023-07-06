@@ -39,7 +39,7 @@ function Campaign({ address, search }) {
     }, [address]);
 
     const needChildsInfo = () => {
-        return address.toLocaleLowerCase() === process.env.REACT_APP_ADMIN_ADDRESS || rootWallets.includes(address.toLocaleLowerCase());
+        return address.toLocaleLowerCase() === process.env.REACT_APP_ADMIN_ADDRESS.toLocaleLowerCase() || rootWallets.includes(address.toLocaleLowerCase());
     }
 
     const renderPagenation = () => {

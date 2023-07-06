@@ -86,7 +86,7 @@ function App() {
   };
 
   const isAdminWallet = () => {
-    return address.toLocaleLowerCase() === process.env.REACT_APP_ADMIN_ADDRESS;
+    return address.toLocaleLowerCase() === process.env.REACT_APP_ADMIN_ADDRESS.toLocaleLowerCase();
   };
 
   return (
@@ -102,7 +102,7 @@ function App() {
           <a className="round-button transparent-button pool-button" href="https://app.genieswap.com/#/pool" target="_blank">Pool</a>
         </div> */}
         {
-          isAdminWallet && (
+          isAdminWallet() && (
             <div className='search-container'>
               <input type='text' placeholder='Search address' value={search} onChange={(e) => {setSearch(e.target.value)}} />
             </div>
@@ -128,7 +128,7 @@ function App() {
             <div className="campaigns-container campaigns-container-top">
               <div className="campaign-title">Campaigns</div>
               {
-                isAdminWallet ?
+                isAdminWallet() ?
                   rootWallets.map((item) => <Campaign search={search} key={item} address={item} />)
                   :
                   <Campaign address={address} />
