@@ -43,7 +43,7 @@ function Referrer({ address }) {
                 {address}
             </td>
             <td>
-                {loading ? 'Loading...' : (referrerValue * 1e-6).toFixed(2)}
+                {loading ? 'Loading...' : '$' + (referrerValue * 1e-6).toFixed(2)}
             </td>
             <td>
                 {loading ? 'Loading...' : childWallets.length.toLocaleString()}
