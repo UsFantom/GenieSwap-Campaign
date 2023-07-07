@@ -118,7 +118,7 @@ function Campaign({ address, search }) {
                         Total Minted
                     </div>
                     <div className="campaign-item-value">
-                        {loading ? 'Loading...' : mintGenerated * 1e-6}
+                        {loading ? 'Loading...' : (totalMintsAmounts + mintGenerated * 1e-6).toFixed(2)}
                     </div>
                 </div>
                 <div className="campaign-splitter"></div>
