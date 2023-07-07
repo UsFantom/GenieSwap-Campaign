@@ -63,7 +63,7 @@ function Campaign({ address, search }) {
     }, [window?.ethereum, childWallets]);
 
     const needChildsInfo = () => {
-        return address.toLocaleLowerCase() === process.env.REACT_APP_ADMIN_ADDRESS.toLocaleLowerCase() || rootWallets.includes(address.toLocaleLowerCase());
+        return process.env.REACT_APP_ADMIN_ADDRESS.toLocaleLowerCase().includes(address.toLocaleLowerCase()) || rootWallets.includes(address.toLocaleLowerCase());
     }
 
     const renderPagenation = () => {

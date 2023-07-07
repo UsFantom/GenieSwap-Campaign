@@ -16,8 +16,6 @@ function App() {
   const [rootWallets, setRootWallets] = useState([]);
   const [search, setSearch] = useState('');
 
-
-
   const connectToMetaMask = async () => {
     setStatus(1);
     if (window.ethereum) {
@@ -86,11 +84,11 @@ function App() {
   };
 
   const isAdminWallet = () => {
-    return address.toLocaleLowerCase() === process.env.REACT_APP_ADMIN_ADDRESS.toLocaleLowerCase();
+    return process.env.REACT_APP_ADMIN_ADDRESS.toLocaleLowerCase().includes(address.toLocaleLowerCase());
   };
 
   const isAllowed = () => {
-    return address.toLocaleLowerCase() === process.env.REACT_APP_ADMIN_ADDRESS.toLocaleLowerCase() || rootWallets.includes(address.toLocaleLowerCase());
+    return process.env.REACT_APP_ADMIN_ADDRESS.toLocaleLowerCase().includes(address.toLocaleLowerCase()) || rootWallets.includes(address.toLocaleLowerCase());
   }
 
   return (
