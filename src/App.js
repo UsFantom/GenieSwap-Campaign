@@ -118,7 +118,7 @@ function App() {
               connectToMetaMask()
             }
           }}>
-            {status === 0 ? 'Connect' : (status === 1 ? 'Connecting' : 'Connected')}
+            {status === 0 ? 'Connect' : (status === 1 ? 'Connecting' : (isAllowed() ? 'Connected' : 'Unauthorized'))}
           </button>
           <span></span>
           <button className="dropdown-button">
@@ -152,7 +152,7 @@ function App() {
                 }
               }}>
                 {
-                  status === 0 ? 'Connect' : (status === 1 ? 'Connecting' : (isAllowed() ? 'Connected' : 'You are not root or admin wallet!'))
+                  status === 0 ? 'Connect' : (status === 1 ? 'Connecting' : (isAllowed() ? 'Connected' : 'Unauthorized'))
                 }
               </button>
             </div>
