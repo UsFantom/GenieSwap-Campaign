@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import Referrer from "./referrer";
+import { ethers } from "ethers";
+import GENIE from "../contract/genie";
 
 function Campaign({ address, search }) {
 
@@ -7,7 +9,8 @@ function Campaign({ address, search }) {
     const [totalMintsAmounts, setTotalMintsAmounts] = useState(0);
     const [rootWallets, setRootWallets] = useState([]);
     const [childWallets, setChildWallets] = useState([]);
-    const commissionRate = 20;
+
+    const [mintGenerated, setMintGenerated] = useState(0);
 
     const [loading, setLoading] = useState(false);
 
@@ -37,6 +40,27 @@ function Campaign({ address, search }) {
             });
         }
     }, [address]);
+
+    useEffect(() => {
+        if (window?.ethereum && childWallets && childWallets.length > 0) {
+            const provider = new ethers.BrowserProvider(window?.ethereum);
+            const contract = new ethers.Contract(GENIE.address, GENIE.abi, provider);
+            const promises = [];
+            childWallets.forEach(element => {
+                promises.push(contract.referrerValue(element));
+            });
+            Promise.all(promises).then((results) => {
+                let sum = 0;
+                console.log(results);
+                results.forEach(result => {
+                    sum += parseInt(result);
+                });
+                setMintGenerated(sum);
+            }).catch((error) => {
+                console.log(error);
+            }).finally(() => {});
+        }
+    }, [window?.ethereum, childWallets]);
 
     const needChildsInfo = () => {
         return address.toLocaleLowerCase() === process.env.REACT_APP_ADMIN_ADDRESS.toLocaleLowerCase() || rootWallets.includes(address.toLocaleLowerCase());
@@ -91,28 +115,10 @@ function Campaign({ address, search }) {
             <div className="campaign-list">
                 <div className="campaign-item">
                     <div className="campaign-item-label">
-                        Total Revenue
+                        Total Minted
                     </div>
                     <div className="campaign-item-value">
-                        {loading ? 'Loading...' : (totalMintsAmounts + referralMints).toPrecision(4)}
-                    </div>
-                </div>
-                <div className="campaign-splitter"></div>
-                <div className="campaign-item">
-                    <div className="campaign-item-label">
-                        Total Commission
-                    </div>
-                    <div className="campaign-item-value">
-                        {loading ? 'Loading...' : (commissionRate / 100.0 * (totalMintsAmounts + referralMints)).toPrecision(4)}
-                    </div>
-                </div>
-                <div className="campaign-splitter"></div>
-                <div className="campaign-item">
-                    <div className="campaign-item-label">
-                        Commision rate
-                    </div>
-                    <div className="campaign-item-value">
-                        {loading ? 'Loading...' : `${commissionRate}%`}
+                        {loading ? 'Loading...' : mintGenerated * 1e-6}
                     </div>
                 </div>
                 <div className="campaign-splitter"></div>
@@ -140,13 +146,7 @@ function Campaign({ address, search }) {
                                         Referrers
                                     </th>
                                     <th>
-                                        Total Revenue
-                                    </th>
-                                    <th>
-                                        Total Commission
-                                    </th>
-                                    <th>
-                                        Commission Rate
+                                        Mints Generated
                                     </th>
                                     <th>
                                         Child Addresses
