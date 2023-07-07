@@ -146,6 +146,9 @@ function Campaign({ address, search }) {
                                         Referrers
                                     </th>
                                     <th>
+                                        Direct Mints
+                                    </th>
+                                    <th>
                                         Mints Generated
                                     </th>
                                     <th>
