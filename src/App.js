@@ -89,6 +89,10 @@ function App() {
     return address.toLocaleLowerCase() === process.env.REACT_APP_ADMIN_ADDRESS.toLocaleLowerCase();
   };
 
+  const isAllowed = () => {
+    return address.toLocaleLowerCase() === process.env.REACT_APP_ADMIN_ADDRESS.toLocaleLowerCase() || rootWallets.includes(address.toLocaleLowerCase());
+  }
+
   return (
     <div className="App">
       <header className="App-header">
@@ -104,7 +108,7 @@ function App() {
         {
           isAdminWallet() && (
             <div className='search-container'>
-              <input type='text' placeholder='Search address' value={search} onChange={(e) => {setSearch(e.target.value)}} />
+              <input type='text' placeholder='Search address' value={search} onChange={(e) => { setSearch(e.target.value) }} />
             </div>
           )
         }
@@ -123,7 +127,7 @@ function App() {
         </div>
       </header>
       {
-        address ?
+        address && isAllowed() ?
           <div className="main">
             <div className="campaigns-container campaigns-container-top">
               <div className="campaign-title">Campaigns</div>
@@ -138,14 +142,18 @@ function App() {
           </div>
           :
           <div className='center-container'>
-            <div className='connect-title'>Connect Wallet</div>
+            <div className='connect-title'>
+              {status !== 2 ? 'Connect Wallet' : ""}
+            </div>
             <div className="connect-container">
               <button className="connect-button" onClick={() => {
                 if (status === 0) {
                   connectToMetaMask()
                 }
               }}>
-                {status === 0 ? 'Connect' : (status === 1 ? 'Connecting' : 'Connected')}
+                {
+                  status === 0 ? 'Connect' : (status === 1 ? 'Connecting' : (isAllowed() ? 'Connected' : 'You are not root or admin wallet!'))
+                }
               </button>
             </div>
           </div>
