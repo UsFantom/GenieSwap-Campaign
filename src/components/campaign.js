@@ -6,7 +6,9 @@ import GENIE from "../contract/genie";
 function Campaign({ address, search }) {
 
     const [referralMints, setReferralMints] = useState(0);
+    const [referralGenie, setReferralGenie] = useState(0);
     const [totalMintsAmounts, setTotalMintsAmounts] = useState(0);
+    const [totalMintsGenie, setTotalMintsGenie] = useState(0);
     const [rootWallets, setRootWallets] = useState([]);
     const [childWallets, setChildWallets] = useState([]);
 
@@ -34,7 +36,9 @@ function Campaign({ address, search }) {
                 setChildWallets(data1?.data ?? []);
                 setRootWallets(data2);
                 setReferralMints(data3?.data?.referralMints ?? 0);
+                setReferralGenie(data3?.data?.referralGenie ?? 0);
                 setTotalMintsAmounts(data3?.data?.totalMintAmounts ?? 0);
+                setTotalMintsGenie(data3?.data?.totalMintsGenie ?? 0);
             }).catch(() => { }).finally(() => {
                 setLoading(false);
             });
@@ -122,6 +126,15 @@ function Campaign({ address, search }) {
                     </div>
                 </div>
                 <div className="campaign-splitter"></div>
+                <div className="campaign-item">
+                    <div className="campaign-item-label">
+                        Total Minted Genie
+                    </div>
+                    <div className="campaign-item-value">
+                        {loading ? 'Loading...' : (referralGenie + totalMintsGenie).toFixed(2)}
+                    </div>
+                </div>
+                <div className="campaign-splitter"></div>
                 <div className={needChildsInfo() ? "campaign-item cursor-pointer" : "campaign-item"} onClick={() => {
                     if (needChildsInfo()) {
                         setShowChilds(!showChild);
@@ -147,6 +160,9 @@ function Campaign({ address, search }) {
                                     </th>
                                     <th>
                                         Direct Mints
+                                    </th>
+                                    <th>
+                                        Direct Mints Genie
                                     </th>
                                     <th>
                                         Mints Generated

@@ -8,6 +8,7 @@ function Referrer({ address }) {
     const [referrerValue, setReferrerValue] = useState(0);
     const [referralMints, setReferralMints] = useState(0);
     const [totalMintsAmounts, setTotalMintsAmounts] = useState(0);
+    const [totalMintsGenie, setTotalMintsGenie] = useState(0);
 
     useEffect(() => {
         if (address) {
@@ -23,6 +24,7 @@ function Referrer({ address }) {
                 setChildWallets(data1?.data ?? []);
                 setReferralMints(data2?.data?.referralMints ?? 0);
                 setTotalMintsAmounts(data2?.data?.totalMintAmounts ?? 0);
+                setTotalMintsGenie(data2?.data?.totalMintsGenie ?? 0);
             }).catch(() => { }).finally(() => {
                 setLoading(false);
             });
@@ -49,6 +51,7 @@ function Referrer({ address }) {
                 {address}
             </td>
             <td>{loading ? 'Loading...' : '$' + totalMintsAmounts.toFixed(2)}</td>
+            <td>{loading ? 'Loading...' : totalMintsGenie.toFixed(2)}</td>
             <td>
                 {loading ? 'Loading...' : '$' + (referrerValue * 1e-6).toFixed(2)}
             </td>
